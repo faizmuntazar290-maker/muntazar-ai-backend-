@@ -8,9 +8,10 @@ export async function POST(request: Request) {
     const message = body?.message;
     const language = body?.language || "ha";
 
-    if (!message || !message.trim()) {
+    if (!message || typeof message !== "string" || !message.trim()) {
       return NextResponse.json(
         {
+          ok: false,
           error: "Tambaya babu komai.",
         },
         { status: 400 }
