@@ -1,13 +1,18 @@
 import { NextResponse } from "next/server";
-import { askMuntazarAI } from "@/lib/ai";
+import { askMuntazarAI } from "../../../lib/ai";
 
 export async function POST(request: Request) {
   try {
-    const { message, language = "ha" } = await request.json();
+    const body = await request.json();
 
-    if (!message?.trim()) {
+    const message = body?.message;
+    const language = body?.language || "ha";
+
+    if (!message || !message.trim()) {
       return NextResponse.json(
-        { error: "Tambaya babu komai." },
+        {
+          error: "Tambaya babu komai.",
+        },
         { status: 400 }
       );
     }
