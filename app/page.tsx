@@ -1,19 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import ChatInput from "@/components/ChatInput";
 
 export default function Home() {
-  const [question, setQuestion] = useState("");
-
-  const askMuntazar = () => {
-    if (!question.trim()) return;
-
-    alert("Tambayarka ta shiga Muntazar AI: " + question);
-  };
-
   return (
     <main className="min-h-screen bg-[#071f19] text-white">
-      <div className="mx-auto max-w-6xl px-5 py-8">
+      <div className="mx-auto max-w-6xl px-5 py-8 pb-28">
 
         {/* Header */}
         <header className="mb-10 flex items-center justify-between">
@@ -51,21 +43,7 @@ export default function Home() {
             🤖 Tambayi Muntazar AI
           </h3>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <input
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              placeholder="Rubuta tambayarka..."
-              className="flex-1 rounded-2xl border border-white/10 bg-[#071f19] px-5 py-4 text-white outline-none placeholder:text-gray-500 focus:border-[#d6b56a]"
-            />
-
-            <button
-              onClick={askMuntazar}
-              className="rounded-2xl bg-[#d6b56a] px-7 py-4 font-bold text-[#071f19] transition hover:opacity-90"
-            >
-              Aika
-            </button>
-          </div>
+          <ChatInput />
         </section>
 
         {/* Features */}
