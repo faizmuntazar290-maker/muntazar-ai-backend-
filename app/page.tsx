@@ -4,175 +4,690 @@ import { useState } from "react";
 
 export default function Home() {
   const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  async function askMuntazar() {
+  const askAI = () => {
     if (!question.trim()) return;
 
-    setLoading(true);
-    setAnswer("");
-
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: question,
-          language: "ha",
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "An samu matsala.");
-      }
-
-      setAnswer(data.answer);
-    } catch (error) {
-      setAnswer(
-        error instanceof Error
-          ? error.message
-          : "An samu matsala wajen samun amsa."
-      );
-    } finally {
-      setLoading(false);
-    }
-  }
+    alert("Tambayarka: " + question);
+  };
 
   return (
-    <main className="min-h-screen bg-[#071f19] px-5 py-10 text-white">
-      <div className="mx-auto max-w-5xl">
+    <main className="app">
+      {/* Background decoration */}
+      <div className="glow glowOne" />
+      <div className="glow glowTwo" />
 
-        <header className="mb-10">
-          <h1 className="text-4xl font-bold text-[#d6b56a]">
-            🌙 Muntazar AI
-          </h1>
+      {/* Header */}
+      <header className="header">
+        <div className="brand">
+          <div className="logo">☾</div>
 
-          <p className="mt-2 text-gray-300">
-            Ilmi • Hujja • Intizar
-          </p>
-        </header>
+          <div>
+            <h1>Muntazar AI</h1>
+            <p>Ilmi • Hujja • Intizar</p>
+          </div>
+        </div>
 
-        <section className="mb-8">
-          <h2 className="text-3xl font-bold">
-            Assalamu Alaikum
-          </h2>
+        <button className="language">HA</button>
+      </header>
 
-          <p className="mt-3 max-w-2xl text-gray-300">
-            Muntazar AI mataimaki ne na ilimi da bincike
-            kan Ahlul Bayt (AS), Imam Mahdi (AJ),
-            Mahdawiyya, Qur'ani, Hadith da tarihin Musulunci.
-          </p>
-        </section>
+      {/* Hero */}
+      <section className="hero">
+        <div className="badge">
+          <span>✦</span>
+          Islamic Research Assistant
+        </div>
 
-        <section className="rounded-3xl border border-[#d6b56a]/20 bg-[#0b2a22] p-6">
+        <h2>
+          Assalamu Alaikum
+          <br />
+          <span>Barka da zuwa Muntazar AI</span>
+        </h2>
 
-          <h3 className="mb-4 text-xl font-bold">
-            🤖 Tambayi Muntazar AI
-          </h3>
+        <p>
+          Mataimakinka na ilimi da bincike kan Ahlul Bayt (AS),
+          Mahdawiyya, Qur&apos;ani, Hadith da tarihin Musulunci.
+        </p>
+      </section>
 
-          <textarea
+      {/* AI Search */}
+      <section className="aiBox">
+        <div className="aiTitle">
+          <div className="aiIcon">✦</div>
+
+          <div>
+            <h3>Tambayi Muntazar AI</h3>
+            <span>Tambaya • Bincike • Ilimi</span>
+          </div>
+        </div>
+
+        <div className="searchBox">
+          <input
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            placeholder="Rubuta tambayarka a nan..."
-            className="min-h-[140px] w-full rounded-2xl border border-white/10 bg-[#071f19] p-5 text-white outline-none placeholder:text-gray-500 focus:border-[#d6b56a]"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                askAI();
+              }
+            }}
+            placeholder="Me kake son ka bincika?"
           />
 
-          <button
-            onClick={askMuntazar}
-            disabled={loading}
-            className="mt-4 rounded-2xl bg-[#d6b56a] px-7 py-4 font-bold text-[#071f19] disabled:opacity-50"
-          >
-            {loading ? "Ana tunani..." : "Aika Tambaya"}
+          <button onClick={askAI}>
+            <span>➤</span>
+          </button>
+        </div>
+
+        <div className="suggestions">
+          <button onClick={() => setQuestion("Waye Imam Mahdi (AJ)?")}>
+            Imam Mahdi
           </button>
 
-          {answer && (
-            <div className="mt-6 rounded-2xl border border-white/10 bg-[#071f19] p-5">
-              <h4 className="mb-3 font-bold text-[#d6b56a]">
-                Muntazar AI
-              </h4>
+          <button onClick={() => setQuestion("Menene Mahdawiyya?")}>
+            Mahdawiyya
+          </button>
 
-              <p className="whitespace-pre-wrap leading-7 text-gray-200">
-                {answer}
-              </p>
-            </div>
-          )}
+          <button onClick={() => setQuestion("Bincika Hadith")}>
+            Hadith
+          </button>
+        </div>
+      </section>
 
-        </section>
+      {/* Main Features */}
+      <section className="section">
+        <div className="sectionHeader">
+          <div>
+            <span className="smallLabel">EXPLORE</span>
+            <h3>Bincike da Koyo</h3>
+          </div>
 
-        <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <button className="seeAll">Duba duka →</button>
+        </div>
 
-          <Card
-            icon="🌙"
+        <div className="cards">
+
+          <FeatureCard
+            icon="☾"
             title="Mahdawiyya"
-            text="Bincike kan Imam Mahdi (AJ) da Mahdawiyya."
+            description="Koyi game da Imam Mahdi (AJ), Ghayba, Intizar da alamomin zuwan mai ceto."
+            large
           />
 
-          <Card
+          <FeatureCard
             icon="🕌"
             title="Ahlul Bayt"
-            text="Koyo game da Ahlul Bayt (AS)."
+            description="Bincike kan rayuwa, koyarwa da tarihin Ahlul Bayt (AS)."
           />
 
-          <Card
+          <FeatureCard
             icon="📖"
             title="Qur'an & Tafsir"
-            text="Binciken ayoyi da tafsiri."
+            description="Binciken ayoyi, ma'anoni da tafsiri."
           />
 
-          <Card
+          <FeatureCard
             icon="📚"
-            title="Hadith"
-            text="Bincike kan Hadith da majiyoyi."
+            title="Hadith Research"
+            description="Nemo Hadith tare da source, isnad da grading."
           />
 
-          <Card
-            icon="🔍"
+          <FeatureCard
+            icon="🔎"
             title="Source Verification"
-            text="Duba tushen bayanai da ingancinsu."
+            description="Duba tushen magana da matsayin ingancinsa."
           />
 
-          <Card
+          <FeatureCard
             icon="⚖️"
             title="Compare Sources"
-            text="Kwatanta bayanai daga mabambantan majiyoyi."
+            description="Kwatanta bayanai daga mabambantan majiyoyi."
           />
 
-        </section>
+        </div>
+      </section>
 
-        <footer className="mt-12 border-t border-white/10 pt-6 text-center text-sm text-gray-500">
-          Muntazar AI — Ilmi • Hujja • Intizar
-        </footer>
+      {/* Research Banner */}
+      <section className="researchBanner">
+        <div className="researchIcon">🔎</div>
 
-      </div>
+        <div>
+          <span>RESEARCH MODE</span>
+          <h3>Bincike mai zurfi</h3>
+          <p>
+            Nemo hujjoji, sources da bayanan malamai cikin tsari.
+          </p>
+        </div>
+
+        <button>→</button>
+      </section>
+
+      {/* Bottom Navigation */}
+      <nav className="bottomNav">
+        <NavItem icon="⌂" label="Home" active />
+        <NavItem icon="⌕" label="Research" />
+        <NavItem icon="▣" label="Library" />
+        <NavItem icon="●" label="Profile" />
+      </nav>
+
+      <footer>
+        <div>☾ Muntazar AI</div>
+        <span>Ilmi • Hujja • Intizar</span>
+      </footer>
+
+      <style jsx global>{`
+
+        * {
+          box-sizing: border-box;
+        }
+
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          margin: 0;
+          background: #041712;
+          color: #ffffff;
+          font-family:
+            Inter,
+            Arial,
+            Helvetica,
+            sans-serif;
+        }
+
+        button,
+        input {
+          font: inherit;
+        }
+
+        button {
+          cursor: pointer;
+        }
+
+        .app {
+          position: relative;
+          min-height: 100vh;
+          overflow: hidden;
+          background:
+            radial-gradient(
+              circle at 50% -10%,
+              rgba(38, 133, 105, 0.25),
+              transparent 35%
+            ),
+            #041712;
+          padding: 24px 18px 110px;
+        }
+
+        .glow {
+          position: absolute;
+          border-radius: 999px;
+          filter: blur(80px);
+          pointer-events: none;
+          opacity: 0.18;
+        }
+
+        .glowOne {
+          width: 180px;
+          height: 180px;
+          background: #0e9f77;
+          top: 220px;
+          right: -80px;
+        }
+
+        .glowTwo {
+          width: 150px;
+          height: 150px;
+          background: #d6b56a;
+          top: 650px;
+          left: -100px;
+        }
+
+        .header {
+          position: relative;
+          z-index: 2;
+          max-width: 1100px;
+          margin: auto;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .brand {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .logo {
+          width: 48px;
+          height: 48px;
+          border-radius: 16px;
+          display: grid;
+          place-items: center;
+          font-size: 27px;
+          color: #071f19;
+          background: linear-gradient(
+            135deg,
+            #e6ca82,
+            #b58b3c
+          );
+          box-shadow: 0 8px 30px rgba(214, 181, 106, 0.2);
+        }
+
+        .brand h1 {
+          margin: 0;
+          font-size: 19px;
+          font-weight: 800;
+          letter-spacing: -0.3px;
+        }
+
+        .brand p {
+          margin: 3px 0 0;
+          color: #829b92;
+          font-size: 11px;
+        }
+
+        .language {
+          border: 1px solid rgba(255,255,255,0.1);
+          background: rgba(255,255,255,0.04);
+          color: #d6b56a;
+          border-radius: 999px;
+          padding: 9px 13px;
+          font-size: 12px;
+          font-weight: 700;
+        }
+
+        .hero {
+          position: relative;
+          z-index: 1;
+          max-width: 1100px;
+          margin: 58px auto 30px;
+        }
+
+        .badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          border: 1px solid rgba(214,181,106,0.2);
+          background: rgba(214,181,106,0.07);
+          color: #d6b56a;
+          padding: 8px 12px;
+          border-radius: 999px;
+          font-size: 11px;
+          font-weight: 700;
+        }
+
+        .hero h2 {
+          margin: 18px 0 12px;
+          font-size: clamp(34px, 8vw, 58px);
+          line-height: 1.05;
+          letter-spacing: -1.8px;
+        }
+
+        .hero h2 span {
+          color: #d6b56a;
+        }
+
+        .hero p {
+          max-width: 650px;
+          color: #8fa69f;
+          font-size: 15px;
+          line-height: 1.8;
+          margin: 0;
+        }
+
+        .aiBox {
+          position: relative;
+          z-index: 2;
+          max-width: 1100px;
+          margin: 35px auto 55px;
+          padding: 20px;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 25px;
+          background: linear-gradient(
+            145deg,
+            rgba(13,49,40,0.96),
+            rgba(7,31,25,0.96)
+          );
+          box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        }
+
+        .aiTitle {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 16px;
+        }
+
+        .aiIcon {
+          width: 42px;
+          height: 42px;
+          border-radius: 13px;
+          display: grid;
+          place-items: center;
+          color: #071f19;
+          background: #d6b56a;
+          font-weight: 900;
+        }
+
+        .aiTitle h3 {
+          margin: 0;
+          font-size: 16px;
+        }
+
+        .aiTitle span {
+          display: block;
+          margin-top: 3px;
+          color: #718b82;
+          font-size: 11px;
+        }
+
+        .searchBox {
+          display: flex;
+          gap: 8px;
+          padding: 7px;
+          background: #041712;
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 18px;
+        }
+
+        .searchBox input {
+          flex: 1;
+          min-width: 0;
+          border: 0;
+          outline: 0;
+          background: transparent;
+          color: white;
+          padding: 12px;
+        }
+
+        .searchBox input::placeholder {
+          color: #536b64;
+        }
+
+        .searchBox button {
+          width: 46px;
+          height: 46px;
+          border: 0;
+          border-radius: 14px;
+          color: #071f19;
+          background: #d6b56a;
+          font-weight: 900;
+          transition: transform .2s;
+        }
+
+        .searchBox button:hover {
+          transform: scale(1.05);
+        }
+
+        .suggestions {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+          margin-top: 12px;
+        }
+
+        .suggestions button {
+          border: 1px solid rgba(255,255,255,0.07);
+          background: rgba(255,255,255,0.035);
+          color: #91a9a1;
+          border-radius: 999px;
+          padding: 7px 11px;
+          font-size: 11px;
+        }
+
+        .section {
+          position: relative;
+          z-index: 1;
+          max-width: 1100px;
+          margin: auto;
+        }
+
+        .sectionHeader {
+          display: flex;
+          align-items: end;
+          justify-content: space-between;
+          margin-bottom: 18px;
+        }
+
+        .smallLabel {
+          color: #648078;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 2px;
+        }
+
+        .sectionHeader h3 {
+          margin: 5px 0 0;
+          font-size: 22px;
+        }
+
+        .seeAll {
+          border: 0;
+          background: transparent;
+          color: #d6b56a;
+          font-size: 11px;
+        }
+
+        .cards {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 12px;
+        }
+
+        .featureCard {
+          min-height: 180px;
+          position: relative;
+          overflow: hidden;
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 22px;
+          padding: 18px;
+          background: rgba(10,39,31,0.88);
+          transition:
+            transform .2s,
+            border-color .2s;
+        }
+
+        .featureCard:hover {
+          transform: translateY(-4px);
+          border-color: rgba(214,181,106,0.3);
+        }
+
+        .featureCard.large {
+          grid-column: span 2;
+          min-height: 190px;
+          background:
+            linear-gradient(
+              135deg,
+              rgba(20,76,61,0.9),
+              rgba(8,37,29,0.95)
+            );
+        }
+
+        .cardIcon {
+          width: 45px;
+          height: 45px;
+          display: grid;
+          place-items: center;
+          border-radius: 14px;
+          background: rgba(214,181,106,0.1);
+          color: #d6b56a;
+          font-size: 22px;
+          margin-bottom: 22px;
+        }
+
+        .featureCard h4 {
+          margin: 0 0 8px;
+          font-size: 15px;
+        }
+
+        .featureCard p {
+          margin: 0;
+          color: #7e9790;
+          font-size: 11px;
+          line-height: 1.7;
+        }
+
+        .researchBanner {
+          max-width: 1100px;
+          margin: 28px auto;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 18px;
+          border: 1px solid rgba(214,181,106,0.14);
+          border-radius: 22px;
+          background: rgba(214,181,106,0.05);
+        }
+
+        .researchIcon {
+          width: 46px;
+          height: 46px;
+          display: grid;
+          place-items: center;
+          border-radius: 14px;
+          background: rgba(214,181,106,0.1);
+        }
+
+        .researchBanner div:nth-child(2) {
+          flex: 1;
+        }
+
+        .researchBanner span {
+          color: #d6b56a;
+          font-size: 9px;
+          letter-spacing: 1.5px;
+          font-weight: 800;
+        }
+
+        .researchBanner h3 {
+          margin: 3px 0;
+          font-size: 15px;
+        }
+
+        .researchBanner p {
+          margin: 0;
+          color: #718981;
+          font-size: 10px;
+        }
+
+        .researchBanner button {
+          width: 38px;
+          height: 38px;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 12px;
+          background: rgba(255,255,255,0.04);
+          color: #d6b56a;
+        }
+
+        .bottomNav {
+          position: fixed;
+          z-index: 20;
+          left: 50%;
+          bottom: 14px;
+          transform: translateX(-50%);
+          width: calc(100% - 28px);
+          max-width: 550px;
+          display: flex;
+          justify-content: space-around;
+          padding: 9px;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 22px;
+          background: rgba(5,24,19,0.94);
+          backdrop-filter: blur(18px);
+          box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .navItem {
+          border: 0;
+          background: transparent;
+          color: #5f7770;
+          min-width: 65px;
+          padding: 5px;
+          border-radius: 15px;
+          font-size: 10px;
+        }
+
+        .navItem.active {
+          color: #d6b56a;
+          background: rgba(214,181,106,0.08);
+        }
+
+        .navIcon {
+          font-size: 19px;
+          display: block;
+          margin-bottom: 2px;
+        }
+
+        footer {
+          max-width: 1100px;
+          margin: 45px auto 0;
+          text-align: center;
+          color: #4e665f;
+          font-size: 10px;
+        }
+
+        footer span {
+          display: block;
+          margin-top: 5px;
+          color: #384f48;
+        }
+
+        @media (min-width: 700px) {
+          .app {
+            padding-left: 35px;
+            padding-right: 35px;
+          }
+
+          .cards {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+          }
+
+          .featureCard.large {
+            grid-column: span 2;
+          }
+        }
+
+      `}</style>
     </main>
   );
 }
 
-function Card({
+function FeatureCard({
   icon,
   title,
-  text,
+  description,
+  large = false,
 }: {
   icon: string;
   title: string;
-  text: string;
+  description: string;
+  large?: boolean;
 }) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-[#0b2a22] p-5">
-      <div className="mb-3 text-3xl">{icon}</div>
+    <div className={`featureCard ${large ? "large" : ""}`}>
+      <div className="cardIcon">{icon}</div>
 
-      <h3 className="mb-2 text-lg font-bold">
-        {title}
-      </h3>
+      <h4>{title}</h4>
 
-      <p className="text-sm leading-6 text-gray-400">
-        {text}
-      </p>
+      <p>{description}</p>
     </div>
+  );
+}
+
+function NavItem({
+  icon,
+  label,
+  active = false,
+}: {
+  icon: string;
+  label: string;
+  active?: boolean;
+}) {
+  return (
+    <button className={`navItem ${active ? "active" : ""}`}>
+      <span className="navIcon">{icon}</span>
+      {label}
+    </button>
   );
 }
