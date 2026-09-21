@@ -2,32 +2,78 @@
 
 import { useState } from "react";
 
+type Message = {
+  role: "user" | "ai";
+  text: string;
+};
+
 export default function ChatPage() {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<
-    { role: "user" | "ai"; text: string }[]
-  >([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const sendMessage = () => {
-    if (!message.trim()) return;
+  const sendMessage = async () => {
+    const text = message.trim();
 
+    if (!text || loading) return;
+
+    // Nuna tambayar user nan take
     setMessages((prev) => [
       ...prev,
       {
         role: "user",
-        text: message,
-      },
-      {
-        role: "ai",
-        text: "Assalamu Alaikum. Ni ne Muntazar AI. Za mu haɗa cikakken tsarin bincike da amsoshi a mataki na gaba.",
+        text,
       },
     ]);
 
     setMessage("");
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: text,
+          language: "ha",
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.ok) {
+        throw new Error(
+          data.error || "An samu matsala wajen samun amsa."
+        );
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "ai",
+          text: data.answer,
+        },
+      ]);
+    } catch (error) {
+      console.error(error);
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "ai",
+          text: "An samu matsala wajen samun amsa. Da fatan za ka sake gwadawa.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <main className="chatPage">
+      {/* HEADER */}
       <header className="chatHeader">
         <a href="/" className="backButton">
           ←
@@ -44,6 +90,7 @@ export default function ChatPage() {
         </div>
       </header>
 
+      {/* CHAT AREA */}
       <section className="chatArea">
         {messages.length === 0 ? (
           <div className="welcome">
@@ -105,10 +152,26 @@ export default function ChatPage() {
                 </div>
               </div>
             ))}
+
+            {loading && (
+              <div className="message aiMessage">
+                <div className="messageLabel">
+                  Muntazar AI
+                </div>
+
+                <div className="typing">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <b>Yana tunani...</b>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </section>
 
+      {/* INPUT */}
       <div className="inputArea">
         <div className="inputBox">
           <input
@@ -120,10 +183,14 @@ export default function ChatPage() {
               }
             }}
             placeholder="Rubuta tambayarka..."
+            disabled={loading}
           />
 
-          <button onClick={sendMessage}>
-            ➤
+          <button
+            onClick={sendMessage}
+            disabled={loading || !message.trim()}
+          >
+            {loading ? "..." : "➤"}
           </button>
         </div>
 
@@ -149,6 +216,10 @@ export default function ChatPage() {
           font: inherit;
         }
 
+        button {
+          cursor: pointer;
+        }
+
         .chatPage {
           min-height: 100vh;
           background:
@@ -162,13 +233,15 @@ export default function ChatPage() {
           flex-direction: column;
         }
 
+        /* HEADER */
+
         .chatHeader {
           height: 72px;
           padding: 12px 18px;
           display: flex;
           align-items: center;
           gap: 12px;
-          border-bottom: 1px solid rgba(255,255,255,0.07);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
           background: rgba(5, 27, 21, 0.92);
         }
 
@@ -179,7 +252,7 @@ export default function ChatPage() {
           place-items: center;
           border-radius: 14px;
           color: #d6b56a;
-          background: rgba(255,255,255,0.05);
+          background: rgba(255, 255, 255, 0.05);
           text-decoration: none;
           font-size: 22px;
         }
@@ -211,6 +284,8 @@ export default function ChatPage() {
           background: #45c795;
         }
 
+        /* CHAT */
+
         .chatArea {
           flex: 1;
           width: 100%;
@@ -239,7 +314,7 @@ export default function ChatPage() {
           );
           color: #071f19;
           font-size: 38px;
-          box-shadow: 0 15px 40px rgba(214,181,106,0.18);
+          box-shadow: 0 15px 40px rgba(214, 181, 106, 0.18);
         }
 
         .welcome h2 {
@@ -262,13 +337,20 @@ export default function ChatPage() {
         }
 
         .quickQuestions button {
-          border: 1px solid rgba(255,255,255,0.08);
-          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: rgba(255, 255, 255, 0.04);
           color: #a0b5ae;
           padding: 9px 12px;
           border-radius: 999px;
           font-size: 11px;
         }
+
+        .quickQuestions button:hover {
+          border-color: rgba(214, 181, 106, 0.3);
+          color: #d6b56a;
+        }
+
+        /* MESSAGES */
 
         .messages {
           display: flex;
@@ -285,13 +367,13 @@ export default function ChatPage() {
         .userMessage {
           align-self: flex-end;
           background: #174b3c;
-          border: 1px solid rgba(255,255,255,0.06);
+          border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .aiMessage {
           align-self: flex-start;
           background: #0b2b22;
-          border: 1px solid rgba(255,255,255,0.07);
+          border: 1px solid rgba(255, 255, 255, 0.07);
         }
 
         .messageLabel {
@@ -305,7 +387,55 @@ export default function ChatPage() {
           color: #d9e4e0;
           font-size: 13px;
           line-height: 1.7;
+          white-space: pre-wrap;
         }
+
+        /* TYPING */
+
+        .typing {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          color: #718981;
+          font-size: 11px;
+        }
+
+        .typing span {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #d6b56a;
+          animation: typing 1.2s infinite;
+        }
+
+        .typing span:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+
+        .typing span:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+
+        .typing b {
+          margin-left: 5px;
+          font-weight: normal;
+        }
+
+        @keyframes typing {
+          0%,
+          60%,
+          100% {
+            opacity: 0.3;
+            transform: translateY(0);
+          }
+
+          30% {
+            opacity: 1;
+            transform: translateY(-3px);
+          }
+        }
+
+        /* INPUT */
 
         .inputArea {
           position: fixed;
@@ -316,7 +446,7 @@ export default function ChatPage() {
           background: linear-gradient(
             to top,
             #041712 70%,
-            rgba(4,23,18,0)
+            rgba(4, 23, 18, 0)
           );
         }
 
@@ -326,7 +456,7 @@ export default function ChatPage() {
           display: flex;
           gap: 8px;
           padding: 7px;
-          border: 1px solid rgba(255,255,255,0.09);
+          border: 1px solid rgba(255, 255, 255, 0.09);
           border-radius: 20px;
           background: #08251e;
         }
@@ -353,6 +483,11 @@ export default function ChatPage() {
           background: #d6b56a;
           color: #071f19;
           font-weight: bold;
+        }
+
+        .inputBox button:disabled {
+          opacity: 0.45;
+          cursor: not-allowed;
         }
 
         .notice {
