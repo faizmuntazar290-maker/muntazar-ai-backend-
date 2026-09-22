@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { askMuntazarAI } from "../../../lib/ai";
+import { askMuntazarAI } from "../../../../lib/ai";
 
 export async function POST(request: Request) {
   try {
@@ -8,17 +8,26 @@ export async function POST(request: Request) {
     const message = body?.message;
     const language = body?.language || "ha";
 
-    if (!message || typeof message !== "string" || !message.trim()) {
+    if (
+      !message ||
+      typeof message !== "string" ||
+      !message.trim()
+    ) {
       return NextResponse.json(
         {
           ok: false,
           error: "Tambaya babu komai.",
         },
-        { status: 400 }
+        {
+          status: 400,
+        }
       );
     }
 
-    const result = await askMuntazarAI(message, language);
+    const result = await askMuntazarAI(
+      message,
+      language
+    );
 
     return NextResponse.json({
       ok: true,
@@ -31,9 +40,11 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         ok: false,
-        error: "An samu matsala wajen sarrafa tambayar.",
+        error: "An samu matsala wajen samun amsa.",
       },
-      { status: 500 }
+      {
+        status: 500,
+      }
     );
   }
 }
