@@ -6,18 +6,20 @@ export default function Home() {
   const [question, setQuestion] = useState("");
 
   const askAI = () => {
-    if (!question.trim()) return;
+    const text = question.trim();
 
-    alert("Tambayarka: " + question);
+    if (!text) return;
+
+    window.location.href =
+      "/chat?question=" + encodeURIComponent(text);
   };
 
   return (
     <main className="app">
-      {/* Background decoration */}
       <div className="glow glowOne" />
       <div className="glow glowTwo" />
 
-      {/* Header */}
+      {/* HEADER */}
       <header className="header">
         <div className="brand">
           <div className="logo">☾</div>
@@ -31,7 +33,7 @@ export default function Home() {
         <button className="language">HA</button>
       </header>
 
-      {/* Hero */}
+      {/* HERO */}
       <section className="hero">
         <div className="badge">
           <span>✦</span>
@@ -50,7 +52,7 @@ export default function Home() {
         </p>
       </section>
 
-      {/* AI Search */}
+      {/* AI SEARCH */}
       <section className="aiBox">
         <div className="aiTitle">
           <div className="aiIcon">✦</div>
@@ -63,6 +65,7 @@ export default function Home() {
 
         <div className="searchBox">
           <input
+            type="text"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             onKeyDown={(e) => {
@@ -79,21 +82,33 @@ export default function Home() {
         </div>
 
         <div className="suggestions">
-          <button onClick={() => setQuestion("Waye Imam Mahdi (AJ)?")}>
+          <button
+            onClick={() =>
+              setQuestion("Waye Imam Mahdi (AJ)?")
+            }
+          >
             Imam Mahdi
           </button>
 
-          <button onClick={() => setQuestion("Menene Mahdawiyya?")}>
+          <button
+            onClick={() =>
+              setQuestion("Menene Mahdawiyya?")
+            }
+          >
             Mahdawiyya
           </button>
 
-          <button onClick={() => setQuestion("Bincika Hadith")}>
+          <button
+            onClick={() =>
+              setQuestion("Bincika Hadith")
+            }
+          >
             Hadith
           </button>
         </div>
       </section>
 
-      {/* Main Features */}
+      {/* FEATURES */}
       <section className="section">
         <div className="sectionHeader">
           <div>
@@ -101,11 +116,12 @@ export default function Home() {
             <h3>Bincike da Koyo</h3>
           </div>
 
-          <button className="seeAll">Duba duka →</button>
+          <button className="seeAll">
+            Duba duka →
+          </button>
         </div>
 
         <div className="cards">
-
           <FeatureCard
             icon="☾"
             title="Mahdawiyya"
@@ -142,17 +158,18 @@ export default function Home() {
             title="Compare Sources"
             description="Kwatanta bayanai daga mabambantan majiyoyi."
           />
-
         </div>
       </section>
 
-      {/* Research Banner */}
+      {/* RESEARCH BANNER */}
       <section className="researchBanner">
         <div className="researchIcon">🔎</div>
 
-        <div>
+        <div className="researchText">
           <span>RESEARCH MODE</span>
+
           <h3>Bincike mai zurfi</h3>
+
           <p>
             Nemo hujjoji, sources da bayanan malamai cikin tsari.
           </p>
@@ -161,21 +178,37 @@ export default function Home() {
         <button>→</button>
       </section>
 
-      {/* Bottom Navigation */}
+      {/* BOTTOM NAVIGATION */}
       <nav className="bottomNav">
-        <NavItem icon="⌂" label="Home" active />
-        <NavItem icon="⌕" label="Research" />
-        <NavItem icon="▣" label="Library" />
-        <NavItem icon="●" label="Profile" />
+        <NavItem
+          icon="⌂"
+          label="Home"
+          active
+        />
+
+        <NavItem
+          icon="⌕"
+          label="Research"
+        />
+
+        <NavItem
+          icon="▣"
+          label="Library"
+        />
+
+        <NavItem
+          icon="●"
+          label="Profile"
+        />
       </nav>
 
+      {/* FOOTER */}
       <footer>
         <div>☾ Muntazar AI</div>
         <span>Ilmi • Hujja • Intizar</span>
       </footer>
 
       <style jsx global>{`
-
         * {
           box-sizing: border-box;
         }
@@ -189,7 +222,6 @@ export default function Home() {
           background: #041712;
           color: #ffffff;
           font-family:
-            Inter,
             Arial,
             Helvetica,
             sans-serif;
@@ -215,6 +247,7 @@ export default function Home() {
               transparent 35%
             ),
             #041712;
+
           padding: 24px 18px 110px;
         }
 
@@ -242,11 +275,15 @@ export default function Home() {
           left: -100px;
         }
 
+        /* HEADER */
+
         .header {
           position: relative;
           z-index: 2;
+
           max-width: 1100px;
           margin: auto;
+
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -261,45 +298,67 @@ export default function Home() {
         .logo {
           width: 48px;
           height: 48px;
+
           border-radius: 16px;
+
           display: grid;
           place-items: center;
+
           font-size: 27px;
+
           color: #071f19;
-          background: linear-gradient(
-            135deg,
-            #e6ca82,
-            #b58b3c
-          );
-          box-shadow: 0 8px 30px rgba(214, 181, 106, 0.2);
+
+          background:
+            linear-gradient(
+              135deg,
+              #e6ca82,
+              #b58b3c
+            );
+
+          box-shadow:
+            0 8px 30px
+            rgba(214, 181, 106, 0.2);
         }
 
         .brand h1 {
           margin: 0;
+
           font-size: 19px;
           font-weight: 800;
-          letter-spacing: -0.3px;
         }
 
         .brand p {
           margin: 3px 0 0;
+
           color: #829b92;
+
           font-size: 11px;
         }
 
         .language {
-          border: 1px solid rgba(255,255,255,0.1);
-          background: rgba(255,255,255,0.04);
+          border: 1px solid
+            rgba(255, 255, 255, 0.1);
+
+          background:
+            rgba(255, 255, 255, 0.04);
+
           color: #d6b56a;
+
           border-radius: 999px;
+
           padding: 9px 13px;
+
           font-size: 12px;
+
           font-weight: 700;
         }
+
+        /* HERO */
 
         .hero {
           position: relative;
           z-index: 1;
+
           max-width: 1100px;
           margin: 58px auto 30px;
         }
@@ -308,19 +367,32 @@ export default function Home() {
           display: inline-flex;
           align-items: center;
           gap: 7px;
-          border: 1px solid rgba(214,181,106,0.2);
-          background: rgba(214,181,106,0.07);
+
+          border: 1px solid
+            rgba(214, 181, 106, 0.2);
+
+          background:
+            rgba(214, 181, 106, 0.07);
+
           color: #d6b56a;
+
           padding: 8px 12px;
+
           border-radius: 999px;
+
           font-size: 11px;
+
           font-weight: 700;
         }
 
         .hero h2 {
           margin: 18px 0 12px;
-          font-size: clamp(34px, 8vw, 58px);
+
+          font-size:
+            clamp(34px, 8vw, 58px);
+
           line-height: 1.05;
+
           letter-spacing: -1.8px;
         }
 
@@ -330,74 +402,114 @@ export default function Home() {
 
         .hero p {
           max-width: 650px;
+
           color: #8fa69f;
+
           font-size: 15px;
+
           line-height: 1.8;
+
           margin: 0;
         }
+
+        /* AI BOX */
 
         .aiBox {
           position: relative;
           z-index: 2;
+
           max-width: 1100px;
+
           margin: 35px auto 55px;
+
           padding: 20px;
-          border: 1px solid rgba(255,255,255,0.08);
+
+          border: 1px solid
+            rgba(255, 255, 255, 0.08);
+
           border-radius: 25px;
-          background: linear-gradient(
-            145deg,
-            rgba(13,49,40,0.96),
-            rgba(7,31,25,0.96)
-          );
-          box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+
+          background:
+            linear-gradient(
+              145deg,
+              rgba(13, 49, 40, 0.96),
+              rgba(7, 31, 25, 0.96)
+            );
+
+          box-shadow:
+            0 20px 60px
+            rgba(0, 0, 0, 0.25);
         }
 
         .aiTitle {
           display: flex;
           align-items: center;
+
           gap: 12px;
+
           margin-bottom: 16px;
         }
 
         .aiIcon {
           width: 42px;
           height: 42px;
+
           border-radius: 13px;
+
           display: grid;
           place-items: center;
+
           color: #071f19;
+
           background: #d6b56a;
+
           font-weight: 900;
         }
 
         .aiTitle h3 {
           margin: 0;
+
           font-size: 16px;
         }
 
         .aiTitle span {
           display: block;
+
           margin-top: 3px;
+
           color: #718b82;
+
           font-size: 11px;
         }
 
         .searchBox {
           display: flex;
+
           gap: 8px;
+
           padding: 7px;
+
           background: #041712;
-          border: 1px solid rgba(255,255,255,0.07);
+
+          border: 1px solid
+            rgba(255, 255, 255, 0.07);
+
           border-radius: 18px;
         }
 
         .searchBox input {
           flex: 1;
+
           min-width: 0;
+
           border: 0;
+
           outline: 0;
+
           background: transparent;
+
           color: white;
+
           padding: 12px;
         }
 
@@ -408,12 +520,19 @@ export default function Home() {
         .searchBox button {
           width: 46px;
           height: 46px;
+
           border: 0;
+
           border-radius: 14px;
+
           color: #071f19;
+
           background: #d6b56a;
+
           font-weight: 900;
-          transition: transform .2s;
+
+          transition:
+            transform 0.2s;
         }
 
         .searchBox button:hover {
@@ -422,214 +541,344 @@ export default function Home() {
 
         .suggestions {
           display: flex;
+
           gap: 8px;
+
           flex-wrap: wrap;
+
           margin-top: 12px;
         }
 
         .suggestions button {
-          border: 1px solid rgba(255,255,255,0.07);
-          background: rgba(255,255,255,0.035);
+          border: 1px solid
+            rgba(255, 255, 255, 0.07);
+
+          background:
+            rgba(255, 255, 255, 0.035);
+
           color: #91a9a1;
+
           border-radius: 999px;
+
           padding: 7px 11px;
+
           font-size: 11px;
         }
+
+        .suggestions button:hover {
+          color: #d6b56a;
+
+          border-color:
+            rgba(214, 181, 106, 0.3);
+        }
+
+        /* SECTION */
 
         .section {
           position: relative;
           z-index: 1;
+
           max-width: 1100px;
+
           margin: auto;
         }
 
         .sectionHeader {
           display: flex;
+
           align-items: end;
-          justify-content: space-between;
+
+          justify-content:
+            space-between;
+
           margin-bottom: 18px;
         }
 
         .smallLabel {
           color: #648078;
+
           font-size: 9px;
+
           font-weight: 800;
+
           letter-spacing: 2px;
         }
 
         .sectionHeader h3 {
           margin: 5px 0 0;
+
           font-size: 22px;
         }
 
         .seeAll {
           border: 0;
+
           background: transparent;
+
           color: #d6b56a;
+
           font-size: 11px;
         }
 
         .cards {
           display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+
+          grid-template-columns:
+            repeat(
+              2,
+              minmax(0, 1fr)
+            );
+
           gap: 12px;
         }
 
         .featureCard {
           min-height: 180px;
+
           position: relative;
+
           overflow: hidden;
-          border: 1px solid rgba(255,255,255,0.07);
+
+          border: 1px solid
+            rgba(255, 255, 255, 0.07);
+
           border-radius: 22px;
+
           padding: 18px;
-          background: rgba(10,39,31,0.88);
+
+          background:
+            rgba(10, 39, 31, 0.88);
+
           transition:
-            transform .2s,
-            border-color .2s;
+            transform 0.2s,
+            border-color 0.2s;
         }
 
         .featureCard:hover {
-          transform: translateY(-4px);
-          border-color: rgba(214,181,106,0.3);
+          transform:
+            translateY(-4px);
+
+          border-color:
+            rgba(214, 181, 106, 0.3);
         }
 
         .featureCard.large {
           grid-column: span 2;
+
           min-height: 190px;
+
           background:
             linear-gradient(
               135deg,
-              rgba(20,76,61,0.9),
-              rgba(8,37,29,0.95)
+              rgba(20, 76, 61, 0.9),
+              rgba(8, 37, 29, 0.95)
             );
         }
 
         .cardIcon {
           width: 45px;
           height: 45px;
+
           display: grid;
           place-items: center;
+
           border-radius: 14px;
-          background: rgba(214,181,106,0.1);
+
+          background:
+            rgba(214, 181, 106, 0.1);
+
           color: #d6b56a;
+
           font-size: 22px;
+
           margin-bottom: 22px;
         }
 
         .featureCard h4 {
           margin: 0 0 8px;
+
           font-size: 15px;
         }
 
         .featureCard p {
           margin: 0;
+
           color: #7e9790;
+
           font-size: 11px;
+
           line-height: 1.7;
         }
 
+        /* RESEARCH */
+
         .researchBanner {
           max-width: 1100px;
+
           margin: 28px auto;
+
           display: flex;
+
           align-items: center;
+
           gap: 14px;
+
           padding: 18px;
-          border: 1px solid rgba(214,181,106,0.14);
+
+          border: 1px solid
+            rgba(214, 181, 106, 0.14);
+
           border-radius: 22px;
-          background: rgba(214,181,106,0.05);
+
+          background:
+            rgba(214, 181, 106, 0.05);
         }
 
         .researchIcon {
           width: 46px;
           height: 46px;
+
           display: grid;
           place-items: center;
+
           border-radius: 14px;
-          background: rgba(214,181,106,0.1);
+
+          background:
+            rgba(214, 181, 106, 0.1);
         }
 
-        .researchBanner div:nth-child(2) {
+        .researchText {
           flex: 1;
         }
 
         .researchBanner span {
           color: #d6b56a;
+
           font-size: 9px;
+
           letter-spacing: 1.5px;
+
           font-weight: 800;
         }
 
         .researchBanner h3 {
           margin: 3px 0;
+
           font-size: 15px;
         }
 
         .researchBanner p {
           margin: 0;
+
           color: #718981;
+
           font-size: 10px;
         }
 
         .researchBanner button {
           width: 38px;
           height: 38px;
-          border: 1px solid rgba(255,255,255,0.08);
+
+          border: 1px solid
+            rgba(255, 255, 255, 0.08);
+
           border-radius: 12px;
-          background: rgba(255,255,255,0.04);
+
+          background:
+            rgba(255, 255, 255, 0.04);
+
           color: #d6b56a;
         }
 
+        /* BOTTOM NAV */
+
         .bottomNav {
           position: fixed;
+
           z-index: 20;
+
           left: 50%;
           bottom: 14px;
-          transform: translateX(-50%);
-          width: calc(100% - 28px);
+
+          transform:
+            translateX(-50%);
+
+          width:
+            calc(100% - 28px);
+
           max-width: 550px;
+
           display: flex;
-          justify-content: space-around;
+
+          justify-content:
+            space-around;
+
           padding: 9px;
-          border: 1px solid rgba(255,255,255,0.08);
+
+          border: 1px solid
+            rgba(255, 255, 255, 0.08);
+
           border-radius: 22px;
-          background: rgba(5,24,19,0.94);
-          backdrop-filter: blur(18px);
-          box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+
+          background:
+            rgba(5, 24, 19, 0.94);
+
+          backdrop-filter:
+            blur(18px);
+
+          box-shadow:
+            0 15px 40px
+            rgba(0, 0, 0, 0.4);
         }
 
         .navItem {
           border: 0;
+
           background: transparent;
+
           color: #5f7770;
+
           min-width: 65px;
+
           padding: 5px;
+
           border-radius: 15px;
+
           font-size: 10px;
         }
 
         .navItem.active {
           color: #d6b56a;
-          background: rgba(214,181,106,0.08);
+
+          background:
+            rgba(214, 181, 106, 0.08);
         }
 
         .navIcon {
           font-size: 19px;
+
           display: block;
+
           margin-bottom: 2px;
         }
 
         footer {
           max-width: 1100px;
+
           margin: 45px auto 0;
+
           text-align: center;
+
           color: #4e665f;
+
           font-size: 10px;
         }
 
         footer span {
           display: block;
+
           margin-top: 5px;
+
           color: #384f48;
         }
 
@@ -640,18 +889,23 @@ export default function Home() {
           }
 
           .cards {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns:
+              repeat(
+                3,
+                minmax(0, 1fr)
+              );
           }
 
           .featureCard.large {
             grid-column: span 2;
           }
         }
-
       `}</style>
     </main>
   );
 }
+
+/* FEATURE CARD */
 
 function FeatureCard({
   icon,
@@ -665,8 +919,14 @@ function FeatureCard({
   large?: boolean;
 }) {
   return (
-    <div className={`featureCard ${large ? "large" : ""}`}>
-      <div className="cardIcon">{icon}</div>
+    <div
+      className={`featureCard ${
+        large ? "large" : ""
+      }`}
+    >
+      <div className="cardIcon">
+        {icon}
+      </div>
 
       <h4>{title}</h4>
 
@@ -674,6 +934,8 @@ function FeatureCard({
     </div>
   );
 }
+
+/* NAV ITEM */
 
 function NavItem({
   icon,
@@ -685,8 +947,15 @@ function NavItem({
   active?: boolean;
 }) {
   return (
-    <button className={`navItem ${active ? "active" : ""}`}>
-      <span className="navIcon">{icon}</span>
+    <button
+      className={`navItem ${
+        active ? "active" : ""
+      }`}
+    >
+      <span className="navIcon">
+        {icon}
+      </span>
+
       {label}
     </button>
   );
