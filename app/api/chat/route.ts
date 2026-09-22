@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { askMuntazarAI } from "../../../../lib/ai";
+import { askMuntazarAI } from "../../../lib/ai";
 
 export async function POST(request: Request) {
   try {
