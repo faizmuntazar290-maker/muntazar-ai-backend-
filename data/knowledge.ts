@@ -75,3 +75,24 @@ Muna ci gaba da faɗaɗa Knowledge Base ɗin Muntazar AI.`,
     );
   }
 }
+export function findKnowledgeItem(
+  question: string
+): KnowledgeItem | null {
+  const normalizedQuestion = question.toLowerCase().trim();
+
+  if (!normalizedQuestion) {
+    return null;
+  }
+
+  for (const item of knowledgeBase) {
+    const found = item.keywords.some((keyword) =>
+      normalizedQuestion.includes(keyword.toLowerCase())
+    );
+
+    if (found) {
+      return item;
+    }
+  }
+
+  return null;
+}
