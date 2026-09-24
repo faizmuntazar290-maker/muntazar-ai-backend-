@@ -1,0 +1,776 @@
+// data/knowledge.ts
+
+export type KnowledgeItem = {
+  id: string;
+  category: string;
+  title: string;
+  keywords: string[];
+  answer: string;
+  tags: string[];
+};
+
+export const knowledgeBase: KnowledgeItem[] = [
+  // =========================================================
+  // 🌙 MAHDAWIYYA
+  // =========================================================
+
+  {
+    id: "mahdawiyya-intro",
+    category: "Mahdawiyya",
+    title: "🌙 Menene Mahdawiyya?",
+    keywords: [
+      "mahdawiyya",
+      "menene mahdawiyya",
+      "mahdi",
+      "imam mahdi",
+      "imam zaman",
+      "imamuz zaman",
+      "imam zamani",
+    ],
+    answer: `Mahdawiyya fanni ne na binciken Musulunci da ya shafi Imam Mahdi (AJ), imamatinsa, Ghayba, bayyanarsa, alamomin bayyanarsa, da nauyin masu jiran bayyanarsa.
+
+A cikin nazarin Mahdawiyya ana iya duba:
+
+• Imam Mahdi (AJ)
+• Imamat
+• Ghaybat al-Sughra
+• Ghaybat al-Kubra
+• Intizarul Faraj
+• Ayyukan Muntazir
+• Alamomin bayyanar Imam Mahdi
+• Adalci da gyaran al'umma
+• Hadith da Qur'ani
+• Tarihin Mahdawiyya
+
+A Muntazar AI, za mu bambanta tsakanin abin da aka tabbatar daga source, abin da aka rawaito, da sharhin malamai.
+
+⚠️ Wannan bayanin Local Knowledge Base ne. Ba a ɗauke shi a matsayin cikakkiyar hujjar hadith ko hukuncin malami ba tare da source ba.`,
+    tags: [
+      "mahdi",
+      "mahdawiyya",
+      "imam",
+      "intizar",
+      "imamat",
+    ],
+  },
+
+  {
+    id: "imam-mahdi-intro",
+    category: "Mahdawiyya",
+    title: "🌙 Wane ne Imam Mahdi (AJ)?",
+    keywords: [
+      "wane ne imam mahdi",
+      "wanene imam mahdi",
+      "waye imam mahdi",
+      "imam mahdi",
+      "imam muhammad al mahdi",
+      "muhammad al mahdi",
+    ],
+    answer: `Imam Mahdi (AJ) yana da muhimmiyar matsayi a koyarwar Mahdawiyya.
+
+A cikin Shi'a Imamiyya, Imam Muhammad al-Mahdi (AJ) shi ne Imam na goma sha biyu daga cikin Imamai goma sha biyu.
+
+Nazarin Imam Mahdi ya haɗa da:
+
+• Nasabarsa
+• Imamatinsa
+• Haihuwarsa
+• Ghayba
+• Ghaybat al-Sughra
+• Ghaybat al-Kubra
+• Intizar
+• Bayyanarsa
+• Ayyukan masu jiran bayyanarsa
+
+Idan tambaya ta nemi takamaiman tarihi, hadisi ko source, ya kamata a kawo reference ɗin da aka tabbatar maimakon ƙirƙirar bayani.`,
+    tags: [
+      "imam mahdi",
+      "imam zaman",
+      "mahdi",
+      "imamat",
+    ],
+  },
+
+  {
+    id: "intizar",
+    category: "Mahdawiyya",
+    title: "🌙 Menene Intizar?",
+    keywords: [
+      "intizar",
+      "intizarul faraj",
+      "menene intizar",
+      "jiran imam mahdi",
+      "jiran mahdi",
+      "muntazir",
+      "muntazirin",
+      "mai jiran imam mahdi",
+    ],
+    answer: `Intizar yana nufin jira da tsammani.
+
+A mahallin Mahdawiyya, Intizar ba kawai zama ana jiran wani abu ba ne. Ana danganta shi da gyaran kai, ilimi, akhlaq, ibada, adalci da shirye-shiryen mutum.
+
+Abubuwan da za a iya haɗawa da Intizar sun haɗa da:
+
+1. Gyaran kai.
+2. Neman ilimi.
+3. Kyawawan halaye.
+4. Ibada.
+5. Adalci.
+6. Hakuri.
+7. Taimakon mutane.
+8. Gujewa zalunci.
+9. Sanin nauyin mutum.
+10. Fatan Faraj.
+
+Saboda haka, a fahimtar Mahdawiyya, jiran Faraj ba ya nufin mutum ya daina aiki; ana iya fahimtarsa tare da gyaran kai da al'umma.`,
+    tags: [
+      "intizar",
+      "muntazir",
+      "faraj",
+      "mahdi",
+      "mahdawiyya",
+    ],
+  },
+
+  {
+    id: "ghaybat-sughra",
+    category: "Mahdawiyya",
+    title: "🌙 Menene Ghaybat al-Sughra?",
+    keywords: [
+      "ghaybat al sughra",
+      "ghayba sughra",
+      "ghayba karama",
+      "ƙaramar ghayba",
+      "karamar ghayba",
+      "sughra",
+    ],
+    answer: `Ghaybat al-Sughra na nufin ƙaramar Ghayba a tsarin tarihin Mahdawiyya na Shi'a Imamiyya.
+
+Ana bambanta ta da Ghaybat al-Kubra.
+
+A bayanan tarihin Imamiyya, wannan lokaci yana da alaƙa da wakilai na musamman waɗanda ake danganta su da sadarwa da Imam Mahdi (AJ).
+
+Domin cikakken bincike, ya kamata a duba tarihin wakilan musamman da sources na farko da na baya.`,
+    tags: [
+      "ghayba",
+      "sughra",
+      "mahdi",
+      "mahdawiyya",
+    ],
+  },
+
+  {
+    id: "ghaybat-kubra",
+    category: "Mahdawiyya",
+    title: "🌙 Menene Ghaybat al-Kubra?",
+    keywords: [
+      "ghaybat al kubra",
+      "ghayba kubra",
+      "ghayba babba",
+      "babbar ghayba",
+      "kubra",
+    ],
+    answer: `Ghaybat al-Kubra na nufin babbar Ghayba a tsarin tarihin Shi'a Imamiyya.
+
+Ana bambanta ta da Ghaybat al-Sughra.
+
+A wannan lokaci, ana fahimtar cewa ba a samun tsarin wakilai na musamman kamar yadda ake danganta shi da Ghaybat al-Sughra.
+
+Binciken wannan batu ya haɗa da tarihin Ghayba, rawar malamai, nauyin muminai da batun Intizar.`,
+    tags: [
+      "ghayba",
+      "kubra",
+      "mahdi",
+      "mahdawiyya",
+    ],
+  },
+
+  // =========================================================
+  // 🕌 AHLUL BAYT
+  // =========================================================
+
+  {
+    id: "ahlul-bayt",
+    category: "Ahlul Bayt",
+    title: "🕌 Su waye Ahlul Bayt?",
+    keywords: [
+      "ahlul bayt",
+      "ahlulbayt",
+      "ahl al bayt",
+      "ahlul bait",
+      "su waye ahlul bayt",
+      "waye ahlul bayt",
+    ],
+    answer: `Ahlul Bayt kalma ce da ake amfani da ita wajen magana game da iyalan gidan Annabi Muhammad (SAW).
+
+A cikin koyarwar Shi'a Imamiyya, Ahlul Bayt suna da muhimmiyar matsayi a fahimtar addini, musamman ta fuskar Imamat da koyarwar Imamai.
+
+Ana danganta wannan bincike da:
+
+• Annabi Muhammad (SAW)
+• Imam Ali (AS)
+• Sayyida Fatima (SA)
+• Imam Hasan (AS)
+• Imam Husayn (AS)
+• Zuriyar Imam Husayn (AS)
+• Imamai goma sha biyu
+
+Akwai kuma tattaunawa tsakanin mazhabobin Musulunci game da ma'anar da iyakar kalmar Ahlul Bayt, don haka ya dace a bambanta ra'ayoyin malamai da hujjojin da suke amfani da su.`,
+    tags: [
+      "ahlul bayt",
+      "ali",
+      "fatima",
+      "hasan",
+      "husayn",
+      "imamat",
+    ],
+  },
+
+  {
+    id: "imam-ali",
+    category: "Ahlul Bayt",
+    title: "🕌 Imam Ali (AS)",
+    keywords: [
+      "imam ali",
+      "ali ibn abi talib",
+      "ali bin abi talib",
+      "imam ali as",
+      "ali as",
+    ],
+    answer: `Imam Ali ibn Abi Talib (AS) yana daga cikin manyan mutane a tarihin Musulunci.
+
+A cikin Shi'a Imamiyya, Imam Ali (AS) shi ne Imam na farko daga cikin Imamai goma sha biyu.
+
+Ana nazarin rayuwarsa ta fannoni kamar:
+
+• Ilimi
+• Adalci
+• Ibada
+• Jarumtaka
+• Akhlaq
+• Tarihin Khilafa
+• Nahj al-Balagha
+• Imamat
+
+Idan ana neman takamaiman magana daga Imam Ali (AS), ya kamata a bayyana littafin da aka samo ta da matsayin source ɗinta.`,
+    tags: [
+      "imam ali",
+      "ali",
+      "ahlul bayt",
+      "imamat",
+      "nahj al balagha",
+    ],
+  },
+
+  {
+    id: "imam-hasan",
+    category: "Ahlul Bayt",
+    title: "🕌 Imam Hasan (AS)",
+    keywords: [
+      "imam hasan",
+      "hasan ibn ali",
+      "imam hasan al mujtaba",
+      "hasan al mujtaba",
+    ],
+    answer: `Imam Hasan ibn Ali (AS) shi ne Imam na biyu a cikin Imamai goma sha biyu a koyarwar Shi'a Imamiyya.
+
+Shi ɗan Imam Ali (AS) ne da Sayyida Fatima (SA), kuma jikan Annabi Muhammad (SAW).
+
+Nazarin rayuwarsa ya haɗa da:
+
+• Matsayinsa a Ahlul Bayt
+• Imamatinsa
+• Sulhu
+• Hakuri
+• Akhlaq
+• Tarihin zamaninsa
+
+Don cikakken bincike kan sulhun Imam Hasan (AS), ya dace a duba sources na tarihi daban-daban.`,
+    tags: [
+      "imam hasan",
+      "hasan",
+      "ahlul bayt",
+      "imamat",
+    ],
+  },
+
+  {
+    id: "imam-husayn",
+    category: "Ahlul Bayt",
+    title: "🕌 Imam Husayn (AS)",
+    keywords: [
+      "imam husayn",
+      "imam hussain",
+      "husayn ibn ali",
+      "hussain ibn ali",
+      "karbala",
+      "ashura",
+      "imam husain",
+    ],
+    answer: `Imam Husayn ibn Ali (AS) shi ne Imam na uku a cikin Imamai goma sha biyu a koyarwar Shi'a Imamiyya.
+
+Rayuwarsa da abubuwan Karbala suna da muhimmiyar matsayi a tarihin Musulunci.
+
+Ana nazarin Imam Husayn (AS) ta fannoni kamar:
+
+• Karbala
+• Ashura
+• Adalci
+• Tsayuwa kan gaskiya
+• Hakuri
+• Shahada
+• Akhlaq
+• Tarihin Ahlul Bayt
+
+Karbala tana da manyan darussa na tarihi da akhlaq, amma takamaiman bayanan tarihi ya kamata a danganta su da sources.`,
+    tags: [
+      "imam husayn",
+      "karbala",
+      "ashura",
+      "ahlul bayt",
+    ],
+  },
+
+  // =========================================================
+  // 📚 IMAMAT
+  // =========================================================
+
+  {
+    id: "imamat-intro",
+    category: "Imamat",
+    title: "📚 Menene Imamat?",
+    keywords: [
+      "imamat",
+      "imama",
+      "imamah",
+      "menene imamat",
+      "menene imama",
+      "menene imamah",
+    ],
+    answer: `Imamat yana nufin jagoranci ko shugabanci.
+
+A cikin koyarwar Shi'a Imamiyya, Imamat wani matsayi ne na jagorancin addini bayan Annabi Muhammad (SAW), kuma ana danganta shi da Imamai goma sha biyu.
+
+Imamai goma sha biyu a wannan koyarwa su ne:
+
+1. Imam Ali (AS)
+2. Imam Hasan (AS)
+3. Imam Husayn (AS)
+4. Imam Ali Zayn al-Abidin (AS)
+5. Imam Muhammad al-Baqir (AS)
+6. Imam Ja'far al-Sadiq (AS)
+7. Imam Musa al-Kazim (AS)
+8. Imam Ali al-Rida (AS)
+9. Imam Muhammad al-Jawad (AS)
+10. Imam Ali al-Hadi (AS)
+11. Imam Hasan al-Askari (AS)
+12. Imam Muhammad al-Mahdi (AJ)
+
+Akwai bambance-bambancen fahimta tsakanin mazhabobin Musulunci game da Imamat, don haka bincike mai kyau yana bukatar a kawo hujjojin kowace mahanga.`,
+    tags: [
+      "imamat",
+      "imam",
+      "imamai",
+      "twelve imams",
+    ],
+  },
+
+  {
+    id: "twelve-imams",
+    category: "Imamat",
+    title: "📚 Imamai Goma Sha Biyu",
+    keywords: [
+      "imamai goma sha biyu",
+      "imamai 12",
+      "twelve imams",
+      "12 imams",
+      "sunayen imamai",
+      "jerin imamai",
+    ],
+    answer: `A cikin Shi'a Imamiyya, jerin Imamai goma sha biyu shi ne:
+
+1. Imam Ali ibn Abi Talib (AS)
+2. Imam Hasan ibn Ali (AS)
+3. Imam Husayn ibn Ali (AS)
+4. Imam Ali Zayn al-Abidin (AS)
+5. Imam Muhammad al-Baqir (AS)
+6. Imam Ja'far al-Sadiq (AS)
+7. Imam Musa al-Kazim (AS)
+8. Imam Ali al-Rida (AS)
+9. Imam Muhammad al-Jawad (AS)
+10. Imam Ali al-Hadi (AS)
+11. Imam Hasan al-Askari (AS)
+12. Imam Muhammad al-Mahdi (AJ)
+
+Wannan jerin yana cikin koyarwar Shi'a Imamiyya.`,
+    tags: [
+      "imamai",
+      "12 imams",
+      "imamat",
+      "ahlul bayt",
+    ],
+  },
+
+  // =========================================================
+  // 📖 HADITH
+  // =========================================================
+
+  {
+    id: "hadith-intro",
+    category: "Hadith",
+    title: "📖 Menene Hadith?",
+    keywords: [
+      "hadith",
+      "hadisi",
+      "hadis",
+      "hadeeth",
+      "menene hadith",
+      "menene hadisi",
+      "menene hadis",
+    ],
+    answer: `Hadith rahoto ne da ya shafi magana, aiki ko amincewar Annabi (SAW). A wasu al'adun hadith kuma ana binciken riwayoyin Ahlul Bayt da Imamai.
+
+A binciken hadith ana duba:
+
+• Isnad
+• Matn
+• Littafin da ya kawo hadisin
+• Marubuci
+• Volume
+• Page
+• Hadith number
+• Matsayin isnad
+• Ra'ayoyin malaman hadith
+• Bambancin riwayoyi
+
+Muhimmin ka'ida ita ce:
+
+"An kawo hadisi a littafi" ba lallai yana nufin "hadisin sahihi ne."
+
+Saboda haka Source Verification yana da muhimmiyar rawa.`,
+    tags: [
+      "hadith",
+      "hadisi",
+      "isnad",
+      "matn",
+      "source",
+    ],
+  },
+
+  {
+    id: "hadith-verification",
+    category: "Hadith",
+    title: "🔍 Yaya ake tantance Hadith?",
+    keywords: [
+      "tantance hadisi",
+      "ingancin hadisi",
+      "sahihin hadisi",
+      "yaya ake tantance hadisi",
+      "binciken hadisi",
+      "hadith verification",
+    ],
+    answer: `Binciken ingancin hadisi yana bukatar a duba abubuwa da dama.
+
+Daga cikinsu akwai:
+
+1. Isnad — jerin masu rawaito.
+2. Rijal — binciken masu rawaito.
+3. Matn — abin da riwayar ta ƙunsa.
+4. Source — littafin da ya kawo riwayar.
+5. Bambancin riwayoyi.
+6. Hukuncin malaman hadith.
+7. Daidaiton riwayar da sauran hujjoji.
+
+Hanyoyin tantancewa suna iya bambanta tsakanin makarantu da masana hadith.
+
+Saboda haka Muntazar AI ba zai kira hadisi "sahihi" kawai saboda ya samu rubutun a wani littafi ba.`,
+    tags: [
+      "hadith",
+      "verification",
+      "isnad",
+      "rijal",
+      "matn",
+    ],
+  },
+
+  // =========================================================
+  // 📖 QUR'AN & TAFSIR
+  // =========================================================
+
+  {
+    id: "quran-tafsir",
+    category: "Qur'an & Tafsir",
+    title: "📖 Qur'ani da Tafsir",
+    keywords: [
+      "quran",
+      "qur'an",
+      "kurani",
+      "kur'ani",
+      "tafsir",
+      "aya",
+      "ayat",
+      "menene tafsir",
+    ],
+    answer: `Qur'ani shi ne littafin Allah a Musulunci.
+
+Tafsir kuwa bincike ne da sharhi kan ma'anoni da abin da ayoyin Qur'ani suke nufi.
+
+A tsarin Muntazar AI, Qur'an & Tafsir zai iya haɗa:
+
+• Surah
+• Ayah
+• Arabic text
+• Fassarar Hausa
+• Tafsir
+• Asbab al-Nuzul
+• Topics
+• Cross references
+• Sources
+
+Muhimmin ƙa'ida ita ce kada a ƙirƙiri ayar Qur'ani ko a danganta magana ga Qur'ani ba tare da tabbatarwa ba.`,
+    tags: [
+      "quran",
+      "tafsir",
+      "aya",
+      "surah",
+      "source",
+    ],
+  },
+
+  // =========================================================
+  // 🔍 SOURCE VERIFICATION
+  // =========================================================
+
+  {
+    id: "source-verification",
+    category: "Source Verification",
+    title: "🔍 Menene Source Verification?",
+    keywords: [
+      "source",
+      "sources",
+      "reference",
+      "references",
+      "madogara",
+      "tushen",
+      "hujja",
+      "source verification",
+      "tabbatar da source",
+      "verify source",
+    ],
+    answer: `Source Verification yana nufin bincika inda wata magana ta fito da matsayin source ɗin.
+
+Idan an kawo hadisi, misali, ana iya bincika:
+
+1. Wane littafi ya kawo shi?
+2. Wane marubuci ne?
+3. Wane volume?
+4. Wane page?
+5. Wane hadith number?
+6. Mene ne isnad?
+7. Shin akwai wasu riwayoyi?
+8. Me malaman hadith suka ce?
+9. Shin akwai sabani kan ingancinsa?
+
+Muntazar AI zai yi ƙoƙarin bambanta tsakanin:
+
+🟢 An tabbatar
+🟡 Ana bukatar ƙarin bincike
+🔴 Ba a tabbatar ba
+⚫ Ana da sabani a kai
+
+Wannan yana taimakawa wajen rage ƙirƙirar references.`,
+    tags: [
+      "source",
+      "reference",
+      "verification",
+      "hadith",
+      "research",
+    ],
+  },
+
+  // =========================================================
+  // 🤖 MUNTAZAR AI
+  // =========================================================
+
+  {
+    id: "muntazar-ai",
+    category: "Muntazar AI",
+    title: "🤖 Menene Muntazar AI?",
+    keywords: [
+      "muntazar ai",
+      "menene muntazar ai",
+      "muntazar",
+      "app",
+      "application",
+      "menene wannan app",
+    ],
+    answer: `Muntazar AI mataimakin ilimi da bincike ne da ake ginawa domin taimakawa wajen nazarin:
+
+🌙 Mahdawiyya
+🕌 Ahlul Bayt (AS)
+📚 Imamat
+📖 Qur'ani da Tafsir
+📖 Hadith
+🔍 Source Verification
+⚖️ Kwatanta sources
+🎓 Study Mode
+🌐 Hausa, Arabic da English
+
+Tsarin da muke ginawa shi ne:
+
+Tambaya
+↓
+Neman bayanai
+↓
+Source Verification
+↓
+Bayani
+↓
+References
+
+A yanzu wannan version yana amfani da Local Knowledge Base.`,
+    tags: [
+      "muntazar",
+      "ai",
+      "knowledge base",
+      "research",
+      "islamic",
+    ],
+  },
+
+  // =========================================================
+  // 👋 GREETING
+  // =========================================================
+
+  {
+    id: "greeting",
+    category: "General",
+    title: "🌙 Barka da zuwa",
+    keywords: [
+      "salam",
+      "sannu",
+      "hello",
+      "hi",
+      "barka",
+      "assalamu alaikum",
+      "salamu alaikum",
+    ],
+    answer: `Wa alaikumus salam wa rahmatullahi wa barakatuh 🌙
+
+Barka da zuwa Muntazar AI.
+
+Ilmi • Hujja • Intizar
+
+Za ka iya tambaya game da:
+
+• Imam Mahdi (AJ)
+• Mahdawiyya
+• Ahlul Bayt (AS)
+• Imamat
+• Ghayba
+• Intizar
+• Hadith
+• Qur'ani da Tafsir
+• Tarihin Musulunci
+• Source Verification`,
+    tags: [
+      "greeting",
+      "salam",
+      "muntazar",
+    ],
+  },
+];
+
+/*
+  SEARCH FUNCTION
+  Wannan function zai nemo mafi dacewa da tambayar user.
+*/
+
+export function normalizeKnowledgeText(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[’‘]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/\s+/g, " ");
+}
+
+export function findKnowledgeItem(
+  question: string
+): KnowledgeItem | null {
+  const normalizedQuestion =
+    normalizeKnowledgeText(question);
+
+  let bestMatch: KnowledgeItem | null = null;
+  let bestScore = 0;
+
+  for (const item of knowledgeBase) {
+    let score = 0;
+
+    for (const keyword of item.keywords) {
+      const normalizedKeyword =
+        normalizeKnowledgeText(keyword);
+
+      if (
+        normalizedQuestion.includes(
+          normalizedKeyword
+        )
+      ) {
+        /*
+          Doguwar keyword tana samun ƙarin score.
+          Misali:
+          "imam mahdi" > "mahdi"
+        */
+        score += normalizedKeyword.length;
+      }
+    }
+
+    /*
+      Tags suna ƙara taimakawa wajen gano topic.
+    */
+    for (const tag of item.tags) {
+      const normalizedTag =
+        normalizeKnowledgeText(tag);
+
+      if (
+        normalizedQuestion.includes(
+          normalizedTag
+        )
+      ) {
+        score += 2;
+      }
+    }
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = item;
+    }
+  }
+
+  return bestMatch;
+}
+
+/*
+  CATEGORY SEARCH
+*/
+
+export function getKnowledgeByCategory(
+  category: string
+): KnowledgeItem[] {
+  const normalizedCategory =
+    normalizeKnowledgeText(category);
+
+  return knowledgeBase.filter(
+    (item) =>
+      normalizeKnowledgeText(item.category) ===
+      normalizedCategory
+  );
+}
+
+/*
+  GET ALL KNOWLEDGE
+*/
+
+export function getAllKnowledge(): KnowledgeItem[] {
+  return knowledgeBase;
+}
