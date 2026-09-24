@@ -1,38 +1,10 @@
 import { NextResponse } from "next/server";
 
-/*
-  MUNTAZAR AI
-  LOCAL KNOWLEDGE ENGINE
-
-  Wannan version ba ya amfani da OpenAI API.
-  Yana aiki da Local Knowledge Base.
-
-  Later:
-  Za mu iya haɗa database + RAG + real AI API.
-*/
-
 type KnowledgeItem = {
   keywords: string[];
   title: string;
   answer: string;
 };
-
-function normalizeText(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[’‘]/g, "'")
-    .replace(/[“”]/g, '"')
-    .replace(/\s+/g, " ");
-}
-
-function containsKeyword(text: string, keywords: string[]): boolean {
-  return keywords.some((keyword) => text.includes(keyword));
-}
-
-/*
-  LOCAL KNOWLEDGE BASE
-*/
 
 const knowledgeBase: KnowledgeItem[] = [
   {
@@ -42,12 +14,11 @@ const knowledgeBase: KnowledgeItem[] = [
       "imam mahdi",
       "imam zaman",
       "imamuz zaman",
-      "imam zamani",
     ],
     title: "🌙 Menene Mahdawiyya?",
-    answer: `Mahdawiyya wani fanni ne na akida da binciken Musulunci da ya shafi Imam Mahdi (AJ), imamatinsa, rayuwarsa, Ghayba, bayyanarsa, alamomin bayyanarsa, da nauyin masu jiran bayyanarsa.
+    answer: `Mahdawiyya fanni ne na binciken Musulunci da ya shafi Imam Mahdi (AJ), imamatinsa, Ghayba, bayyanarsa, alamomin bayyanarsa, da nauyin masu jiran bayyanarsa.
 
-A cikin nazarin Mahdawiyya ana duba abubuwa kamar:
+A cikin nazarin Mahdawiyya ana duba:
 
 • Imam Mahdi (AJ)
 • Imamat
@@ -59,43 +30,35 @@ A cikin nazarin Mahdawiyya ana duba abubuwa kamar:
 • Adalci da gyaran al'umma
 • Hadith da Qur'ani
 • Tarihin Mahdawiyya
-• Ra'ayoyin malaman Musulunci
 
-Muhimmin abu shi ne a rarrabe tsakanin abin da yake da ingantaccen source, abin da aka rawaito, da abin da yake ra'ayin wani malami.
-
-⚠️ Wannan amsa daga Local Knowledge Base ce. Ba zan ƙirƙiri hadisi ko source da ba a tabbatar da shi ba.`,
+⚠️ Wannan amsa ce daga Local Knowledge Base. Ba a amfani da OpenAI API.`,
   },
 
   {
     keywords: [
-      "menene intizar",
-      "menene intizarul faraj",
       "intizar",
       "intizarul faraj",
-      "jiran imam mahdi",
-      "jiran mahdi",
       "muntazir",
       "muntazirin",
+      "jiran imam mahdi",
+      "jiran mahdi",
     ],
     title: "🌙 Menene Intizar?",
-    answer: `Intizar yana nufin jira da tsammani, amma a mahallin Mahdawiyya ba kawai zama ana jira ba ne.
+    answer: `Intizar yana nufin jira da tsammani. A mahallin Mahdawiyya, Intizar ba zama kawai ana jira ba ne.
 
-Intizar yana haɗuwa da:
+Yana haɗuwa da:
 
-1. Gyaran kai.
-2. Ilimi.
-3. Kyawawan halaye.
-4. Adalci.
-5. Yin ibada.
-6. Taimakon mutane.
-7. Gujewa zalunci.
-8. Shirya kai ta fuskar ilimi da akhlaq.
-9. Fatan bayyanar Imam Mahdi (AJ).
-10. Yin aiki domin kyautata al'umma.
+• Gyaran kai
+• Ilimi
+• Kyawawan halaye
+• Ibada
+• Adalci
+• Hakuri
+• Taimakon mutane
+• Gujewa zalunci
+• Shirya kai ta fuskar ilimi da akhlaq
 
-Saboda haka, Muntazir ba mutum ne da yake jiran abin da zai faru kawai ba; yana ƙoƙarin gyara kansa da aikinsa yayin jiran Faraj.
-
-⚠️ Wannan Local Knowledge Base ce.`,
+Muntazir yana ƙoƙarin gyara kansa da aikinsa yayin jiran Faraj.`,
   },
 
   {
@@ -103,30 +66,20 @@ Saboda haka, Muntazir ba mutum ne da yake jiran abin da zai faru kawai ba; yana 
       "ahlul bayt",
       "ahlulbayt",
       "ahl al bayt",
-      "ahlu bait",
       "ahlul bait",
     ],
     title: "🕌 Su waye Ahlul Bayt?",
-    answer: `Ahlul Bayt kalma ce da ake amfani da ita wajen magana game da iyalan gidan Annabi Muhammad (SAW).
+    answer: `Ahlul Bayt suna da muhimmiyar matsayi a tarihin Musulunci da koyarwar addini.
 
-A cikin al'adun Shi'a, Ahlul Bayt suna da muhimmiyar alaƙa da koyarwar Imamat, musamman:
+A cikin koyarwar Shi'a Imamiyya, ana danganta Ahlul Bayt da:
 
 • Imam Ali (AS)
 • Sayyida Fatima (SA)
 • Imam Hasan (AS)
 • Imam Husayn (AS)
-• Da zuriyar Imam Husayn (AS) har zuwa Imam Mahdi (AJ)
+• Zuriyar Imam Husayn (AS) har zuwa Imam Mahdi (AJ)
 
-Ahlul Bayt suna da muhimmiyar matsayi a ilimin Musulunci, tarihin Musulunci, hadith, tafsir da akhlaq.
-
-A Muntazar AI, za mu bambanta tsakanin:
-• Qur'ani
-• Hadith
-• Tarihin da aka rawaito
-• Fassara
-• Sharhin malamai
-
-⚠️ Idan tambaya ta bukaci specific hadith, za mu nemi ingantaccen source maimakon ƙirƙirar reference.`,
+Nazarin Ahlul Bayt ya haɗa da Qur'ani, Hadith, Tarihi, Akhlaq da Imamat.`,
   },
 
   {
@@ -134,14 +87,13 @@ A Muntazar AI, za mu bambanta tsakanin:
       "imam ali",
       "ali ibn abi talib",
       "ali bin abi talib",
-      "imam ali as",
     ],
     title: "🕌 Imam Ali (AS)",
     answer: `Imam Ali ibn Abi Talib (AS) yana daga cikin manyan mutane a tarihin Musulunci.
 
-A cikin koyarwar Shi'a, Imam Ali (AS) shi ne Imam na farko daga cikin Imamai goma sha biyu.
+A koyarwar Shi'a Imamiyya, Imam Ali (AS) shi ne Imam na farko daga cikin Imamai goma sha biyu.
 
-Nazarin rayuwarsa ya haɗa da:
+Ana nazarin rayuwarsa ta fannoni kamar:
 
 • Ilimi
 • Adalci
@@ -150,10 +102,7 @@ Nazarin rayuwarsa ya haɗa da:
 • Akhlaq
 • Khilafa
 • Nahj al-Balagha
-• Tarihin Ahlul Bayt
-• Imamat
-
-Muntazar AI zai iya ware rayuwar Imam Ali (AS) zuwa tarihi, hadith, akhlaq da koyarwar Imamat.`,
+• Imamat`,
   },
 
   {
@@ -164,14 +113,13 @@ Muntazar AI zai iya ware rayuwar Imam Ali (AS) zuwa tarihi, hadith, akhlaq da ko
       "hussain ibn ali",
       "karbala",
       "ashura",
-      "ashura",
     ],
     title: "🕌 Imam Husayn (AS)",
-    answer: `Imam Husayn ibn Ali (AS) shi ne Imam na uku a cikin Imaman goma sha biyu a koyarwar Shi'a.
+    answer: `Imam Husayn ibn Ali (AS) shi ne Imam na uku a cikin Imaman goma sha biyu a koyarwar Shi'a Imamiyya.
 
-Rayuwarsa da shahadarsa a Karbala suna da muhimmiyar matsayi a tarihin Musulunci.
+Rayuwarsa da abin da ya faru a Karbala suna da muhimmiyar matsayi a tarihin Musulunci.
 
-Nazarin Imam Husayn (AS) ya haɗa da:
+Ana nazarin:
 
 • Karbala
 • Ashura
@@ -179,16 +127,12 @@ Nazarin Imam Husayn (AS) ya haɗa da:
 • Tsayuwa kan gaskiya
 • Hakuri
 • Shahada
-• Ayyukan Ahlul Bayt
-• Darussan akhlaq
-
-Karbala ba tarihi kawai ba ce; ana kuma nazarinta ta fuskar darussan akhlaq, adalci da tsayuwa kan gaskiya.`,
+• Akhlaq`,
   },
 
   {
     keywords: [
       "imamat",
-      "imam",
       "imama",
       "imamah",
       "menene imamat",
@@ -197,7 +141,7 @@ Karbala ba tarihi kawai ba ce; ana kuma nazarinta ta fuskar darussan akhlaq, ada
     title: "📚 Menene Imamat?",
     answer: `Imamat yana nufin jagoranci ko shugabanci na addini.
 
-A cikin koyarwar Shi'a Imamiyya, Imamat wani matsayi ne na musamman na jagorancin addini bayan Annabi Muhammad (SAW), kuma ana danganta shi da Imamai goma sha biyu.
+A cikin koyarwar Shi'a Imamiyya, Imamat wani matsayi ne na jagorancin addini bayan Annabi Muhammad (SAW), kuma ana danganta shi da Imamai goma sha biyu.
 
 Su ne:
 
@@ -212,9 +156,7 @@ Su ne:
 9. Imam Muhammad al-Jawad (AS)
 10. Imam Ali al-Hadi (AS)
 11. Imam Hasan al-Askari (AS)
-12. Imam Muhammad al-Mahdi (AJ)
-
-A Muntazar AI za mu kuma bambanta yadda mazhabobin Musulunci suke bayyana ma'anar Imamat da hujjarsu.`,
+12. Imam Muhammad al-Mahdi (AJ)`,
   },
 
   {
@@ -225,22 +167,18 @@ A Muntazar AI za mu kuma bambanta yadda mazhabobin Musulunci suke bayyana ma'ana
       "ghaybat",
       "ghaybat al kubra",
       "ghaybat al sughra",
-      "boye",
-      "ɓoye",
     ],
     title: "🌙 Menene Ghayba?",
     answer: `Ghayba tana nufin ɓoyuwar Imam Mahdi (AJ) daga bayyanar jama'a.
 
-A koyarwar Imamiyya ana magana ne musamman game da:
+A koyarwar Imamiyya ana magana musamman game da:
 
-• Ghaybat al-Sughra — ƙaramar Ghayba
-• Ghaybat al-Kubra — babbar Ghayba
+• Ghaybat al-Sughra
+• Ghaybat al-Kubra
 
-A lokacin Ghaybat al-Sughra, ana danganta sadarwa da Imam Mahdi (AJ) da wakilai na musamman.
+Ghaybat al-Sughra ita ce ƙaramar Ghayba, sannan Ghaybat al-Kubra ita ce babbar Ghayba.
 
-Bayan wannan lokaci aka shiga Ghaybat al-Kubra, wadda ake fahimta a matsayin babban lokacin Ghayba.
-
-Wannan batu yana da cikakken tarihin da ya kamata a bincika daga sources na tarihi da hadith.`,
+Wannan batu yana buƙatar nazarin tarihi da riwayoyi daga sources daban-daban.`,
   },
 
   {
@@ -255,9 +193,7 @@ Wannan batu yana da cikakken tarihin da ya kamata a bincika daga sources na tari
     title: "📖 Menene Hadith?",
     answer: `Hadith rahoto ne da ya shafi magana, aiki, ko amincewar Annabi (SAW), ko kuma a wasu al'adun hadith rahotannin Ahlul Bayt da Imamai.
 
-A binciken hadith, ba a isa kawai a ce "akwai hadisin" ba.
-
-Ana iya duba:
+A binciken hadith ana duba:
 
 • Isnad
 • Matn
@@ -267,33 +203,27 @@ Ana iya duba:
 • Page
 • Hadith number
 • Matsayin isnad
-• Ra'ayin malaman hadith
-• Bambancin riwayoyi
+• Ra'ayoyin malaman hadith
 
-Muhimmin ka'ida a Muntazar AI:
-
-"An kawo hadisi a littafi" ba lallai yana nufin "hadisin sahihi ne."
-
-Saboda haka Source Verification yana da muhimmiyar rawa.`,
+Muhimmin abu shi ne: kasancewar wani hadisi a cikin littafi ba lallai yana nufin cewa dukkan malamai sun ɗauke shi a matsayin sahihi ba.`,
   },
 
   {
     keywords: [
       "quran",
       "qur'an",
-      "kur'ani",
       "kurani",
+      "kur'ani",
       "aya",
       "ayat",
       "tafsir",
-      "menene quran",
     ],
     title: "📖 Qur'ani da Tafsir",
     answer: `Qur'ani shi ne littafin Allah a Musulunci.
 
-Tafsir kuwa bincike ne da sharhi kan ma'anoni da abin da ayoyin Qur'ani suke nufi.
+Tafsir kuwa bincike da sharhi ne kan ma'anoni da abin da ayoyin Qur'ani suke nufi.
 
-A Muntazar AI, tsarin Qur'an & Tafsir zai iya haɗa:
+A Muntazar AI za mu iya tsara binciken Qur'ani da:
 
 • Surah
 • Ayah
@@ -301,11 +231,11 @@ A Muntazar AI, tsarin Qur'an & Tafsir zai iya haɗa:
 • Fassarar Hausa
 • Tafsir
 • Asbab al-Nuzul
-• Cross references
 • Topics
+• Cross references
 • Sources
 
-Muhimmiyar ka'ida ita ce kada a ƙirƙiri aya ko a danganta wata magana ga Qur'ani ba tare da tabbatarwa ba.`,
+Ba za mu ƙirƙiri aya ko mu danganta magana ga Qur'ani ba tare da tabbatarwa ba.`,
   },
 
   {
@@ -315,16 +245,15 @@ Muhimmiyar ka'ida ita ce kada a ƙirƙiri aya ko a danganta wata magana ga Qur'a
       "reference",
       "references",
       "madogara",
-      "mashigar",
       "tushen",
       "hujja",
       "source verification",
       "tabbatar da source",
     ],
     title: "🔍 Source Verification",
-    answer: `Source Verification yana nufin bincika inda wata magana ta fito da kuma matsayin source ɗin.
+    answer: `Source Verification yana nufin bincika inda wata magana ta fito da matsayin source ɗin.
 
-Misali, idan an kawo hadisi, ana iya bincika:
+Misali idan an kawo hadisi, ana iya bincika:
 
 1. Wane littafi ya kawo shi?
 2. Wane marubuci ne?
@@ -336,7 +265,7 @@ Misali, idan an kawo hadisi, ana iya bincika:
 8. Me malaman hadith suka ce?
 9. Shin akwai sabani kan ingancinsa?
 
-Muntazar AI zai tsara wannan domin kada amsa ta dogara kawai da "an ce".`,
+Muntazar AI zai yi amfani da wannan tsarin domin rage yiwuwar kawo bayanan da ba a tabbatar ba.`,
   },
 
   {
@@ -344,11 +273,9 @@ Muntazar AI zai tsara wannan domin kada amsa ta dogara kawai da "an ce".`,
       "muntazar ai",
       "menene muntazar ai",
       "muntazar",
-      "app",
-      "application",
     ],
     title: "🤖 Muntazar AI",
-    answer: `Muntazar AI mataimakin ilimi ne da ake ginawa domin bincike da koyo musamman a fannoni kamar:
+    answer: `Muntazar AI mataimakin ilimi da bincike ne da ake ginawa domin:
 
 🌙 Mahdawiyya
 🕌 Ahlul Bayt (AS)
@@ -376,14 +303,13 @@ A yanzu muna amfani da Local Knowledge Engine saboda ba mu haɗa paid AI API ba.
 
   {
     keywords: [
-      "salamu alaikum",
-      "assalamu alaikum",
-      "salam alaikum",
       "salam",
       "sannu",
       "hello",
       "hi",
       "barka",
+      "assalamu alaikum",
+      "salamu alaikum",
     ],
     title: "🌙 Barka da zuwa",
     answer: `Wa alaikumus salam wa rahmatullahi wa barakatuh 🌙
@@ -407,12 +333,17 @@ Za ka iya tambaya game da:
   },
 ];
 
-/*
-  FIND BEST LOCAL ANSWER
-*/
+function normalizeText(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[’‘]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/\s+/g, " ");
+}
 
-function findKnowledgeAnswer(message: string): KnowledgeItem | null {
-  const normalized = normalizeText(message);
+function findAnswer(message: string): KnowledgeItem | null {
+  const question = normalizeText(message);
 
   let bestMatch: KnowledgeItem | null = null;
   let bestScore = 0;
@@ -421,15 +352,10 @@ function findKnowledgeAnswer(message: string): KnowledgeItem | null {
     let score = 0;
 
     for (const keyword of item.keywords) {
-      const normalizedKeyword = normalizeText(keyword);
+      const key = normalizeText(keyword);
 
-      if (normalized.includes(normalizedKeyword)) {
-        /*
-          Longer keywords get higher scores.
-          Example:
-          "imam mahdi" > "mahdi"
-        */
-        score += normalizedKeyword.length;
+      if (question.includes(key)) {
+        score += key.length;
       }
     }
 
@@ -442,58 +368,27 @@ function findKnowledgeAnswer(message: string): KnowledgeItem | null {
   return bestMatch;
 }
 
-/*
-  GENERAL LOCAL RESPONSE
-*/
-
-function createGeneralResponse(message: string): string {
+function generalAnswer(message: string): string {
   return `🌙 Muntazar AI — Local Knowledge Mode
 
-Na fahimci tambayarka:
+Na karɓi tambayarka:
 
 "${message}"
 
-A yanzu ban sami takamaiman topic ɗin wannan tambayar a Local Knowledge Base ba.
+A yanzu ban sami takamaiman bayanin wannan tambayar a Local Knowledge Base ba.
 
 Za ka iya tambaya game da:
 
 🌙 Mahdawiyya
-• Menene Mahdawiyya?
-• Menene Intizar?
-• Wane ne Imam Mahdi?
-
 🕌 Ahlul Bayt
-• Su waye Ahlul Bayt?
-• Wanene Imam Ali?
-• Wanene Imam Husayn?
-
 📚 Imamat
-• Menene Imamat?
-• Su waye Imamai goma sha biyu?
-
 🌙 Ghayba
-• Menene Ghayba?
-• Menene Ghaybat al-Sughra?
-• Menene Ghaybat al-Kubra?
-
 📖 Hadith
-• Menene Hadith?
-• Yaya ake tantance hadisi?
+📖 Qur'ani da Tafsir
+🔍 Source Verification
 
-📖 Qur'ani
-• Menene Tafsir?
-• Yaya ake binciken aya?
-
-🔍 Sources
-• Menene Source Verification?
-• Yaya ake tabbatar da reference?
-
-⚠️ Wannan Local Knowledge Mode ne. Za mu ci gaba da faɗaɗa Knowledge Base ɗin Muntazar AI.`,
+⚠️ Wannan Local Knowledge Mode ne. Za mu ci gaba da faɗaɗa Knowledge Base ɗin Muntazar AI.`;
 }
-
-/*
-  API POST
-*/
 
 export async function POST(request: Request) {
   try {
@@ -502,7 +397,6 @@ export async function POST(request: Request) {
     const message = body?.message;
 
     if (
-      !message ||
       typeof message !== "string" ||
       !message.trim()
     ) {
@@ -517,21 +411,21 @@ export async function POST(request: Request) {
       );
     }
 
-    const knowledge = findKnowledgeAnswer(message);
+    const matched = findAnswer(message);
 
-    const answer = knowledge
-      ? `${knowledge.title}\n\n${knowledge.answer}`
-      : createGeneralResponse(message);
+    const answer = matched
+      ? `${matched.title}\n\n${matched.answer}`
+      : generalAnswer(message);
 
     return NextResponse.json({
       ok: true,
       answer,
       language: body?.language || "ha",
       mode: "local-knowledge",
-      topic: knowledge?.title || "general",
+      topic: matched?.title || "general",
     });
   } catch (error) {
-    console.error("Muntazar AI Local API Error:", error);
+    console.error("Muntazar AI error:", error);
 
     return NextResponse.json(
       {
