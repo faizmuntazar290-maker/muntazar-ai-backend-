@@ -44,7 +44,7 @@ Na karɓi tambayarka:
 
 "${message}"
 
-A yanzu ban sami takamaiman bayanin wannan tambayar a Knowledge Base ba.
+Ban sami takamaiman bayanin wannan tambayar a Knowledge Base ba tukuna.
 
 Za ka iya tambaya game da:
 
