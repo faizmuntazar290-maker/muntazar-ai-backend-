@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
-import { findKnowledgeItem } from "../../../data/knowledge";
+import {
+  findKnowledgeItem,
+  detectLanguage,
+} from "../../../data/knowledge";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
     const message = body?.message;
-    const language = body?.language || "ha";
 
     if (
       typeof message !== "string" ||
@@ -23,28 +25,42 @@ export async function POST(request: Request) {
       );
     }
 
-    const result = findKnowledgeItem(message);
+    const question = message.trim();
 
+    // Detect the user's language.
+    const detectedLanguage = detectLanguage(question);
+
+    // Search the Knowledge Base.
+    const result = findKnowledgeItem(question);
+
+    // If relevant knowledge is found.
     if (result) {
+      const answer =
+        detectedLanguage === "ha"
+          ? result.answerHa
+          : result.answerEn;
+
       return NextResponse.json({
         ok: true,
-        answer: `${result.title}\n\n${result.answer}`,
-        language,
-        mode: "local-knowledge",
+        answer: answer,
+        language: detectedLanguage,
+        mode: "knowledge-base",
         category: result.category,
         topic: result.id,
+        title: result.title,
+        tags: result.tags,
       });
     }
 
-    return NextResponse.json({
-      ok: true,
-      answer: `🌙 Muntazar AI — Local Knowledge Mode
+    // If nothing is found.
+    const fallbackHa = `
+🌙 Muntazar AI
 
-Na karɓi tambayarka:
+Na fahimci tambayarka:
 
-"${message}"
+"${question}"
 
-Ban sami takamaiman bayanin wannan tambayar a Knowledge Base ba tukuna.
+Amma ban sami bayanin wannan tambayar a Knowledge Base ba tukuna.
 
 Za ka iya tambaya game da:
 
@@ -55,9 +71,38 @@ Za ka iya tambaya game da:
 📖 Qur'ani da Tafsir
 🔍 Source Verification
 
-Muna ci gaba da faɗaɗa Knowledge Base ɗin Muntazar AI.`,
-      language,
-      mode: "local-knowledge",
+Muna ci gaba da faɗaɗa Knowledge Base na Muntazar AI.
+`;
+
+    const fallbackEn = `
+🌙 Muntazar AI
+
+I understood your question:
+
+"${question}"
+
+However, I could not find relevant information for this question in the Knowledge Base yet.
+
+You can ask about:
+
+🌙 Mahdawiyya
+🕌 Ahlul Bayt (AS)
+📚 Imamat
+📖 Hadith
+📖 Qur'an and Tafsir
+🔍 Source Verification
+
+We are continuing to expand the Muntazar AI Knowledge Base.
+`;
+
+    return NextResponse.json({
+      ok: true,
+      answer:
+        detectedLanguage === "ha"
+          ? fallbackHa.trim()
+          : fallbackEn.trim(),
+      language: detectedLanguage,
+      mode: "knowledge-base",
       category: "General",
       topic: "not-found",
     });
